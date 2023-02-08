@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { axiosInstance } from "../api/axios.config";
 import ImageSkeleton from "../shared/imageSkeleton";
 
@@ -15,11 +16,17 @@ const UserDetails = ({ id, setUserId }) => {
 
   if (isLoading) return <ImageSkeleton isCenter />;
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col items-center">
       <div className="cursor-pointer" onClick={() => setUserId(-1)}>
         back
       </div>
-      <img src={user.image} alt="" />
+      <LazyLoadImage
+        alt={user.firstName}
+        height={300}
+        src={user.image}
+        width={250}
+        effect="blur"
+      />
     </div>
   );
 };
