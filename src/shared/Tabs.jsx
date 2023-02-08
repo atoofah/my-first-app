@@ -5,7 +5,6 @@ import Tab from "./Tab";
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState(TABS_LIST[0].name);
   const [temIdx, setTemIdx] = useState(0);
-  console.log(temIdx);
 
   return (
     <div>
