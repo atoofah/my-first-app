@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from "../api/axios.config";
 import ImageSkeleton from "../shared/imageSkeleton";
 import User from "./User";
+import UserDetails from "./UserDetails";
 
 const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userList, setUserList] = useState([]);
+  const [userId, setUserId] = useState(-1);
   useEffect(() => {
     axiosInstance
       .get("/users")
@@ -17,7 +19,7 @@ const Users = () => {
   if (isLoading)
     return (
       <div className="grid grid-cols-grid-layout gap-4">
-        {Array(8)
+        {Array(20)
           .fill(1)
           .map((_, idx) => (
             <ImageSkeleton key={idx} />
@@ -26,11 +28,17 @@ const Users = () => {
     );
 
   return (
-    <div className="grid grid-cols-grid-layout gap-4">
-      {userList.map((user) => (
-        <User key={user.id} {...user} />
-      ))}
-    </div>
+    <>
+      {userId > 0 ? (
+        <UserDetails id={userId} setUserId={setUserId} />
+      ) : (
+        <div className="grid grid-cols-grid-layout gap-4">
+          {userList.map((user) => (
+            <User key={user.id} {...user} setUserId={setUserId} />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
